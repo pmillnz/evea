@@ -25,6 +25,7 @@ EVEA accepts some basic parameters via command line arguments and then attempts 
 - `git clone https://github.com/pmillnz/evea.git`
 - `cd evea`
 - `virtualenv evea`
+- `source evea/bin/activate` (remember to `deactivate` when finished)
 - `pip install json`
 - `pip install requests`
 - `pip install pandas`
