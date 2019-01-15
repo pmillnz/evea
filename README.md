@@ -1,4 +1,4 @@
-# evea
+# EVEA
 
 EVEA is a simple command line tool to find market order arbitrage in the online game, EVE.
 It utilises the EVE Swagger Interface (ESI) to download market orders and supporting metadata, which is stored on the user's file system in the following directories:
@@ -22,7 +22,7 @@ EVEA accepts some basic parameters via command line arguments and then attempts 
 
 ## Set up:
 - `cd /your/chosen/directory/`
-- `git clone https://github.com/PeteMillsNZ/evea.git`
+- `git clone https://github.com/pmillnz/evea.git`
 - `cd evea`
 - `virtualenv evea`
 - `pip install json`
