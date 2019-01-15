@@ -33,7 +33,7 @@ EVEA accepts some basic parameters via command line arguments and then attempts 
 
 ## Usage:
 
-`python.py get_pure_arbitrage.py --args`
+`python get_pure_arbitrage.py --args`
 
 ### Optional arguments:
 * `-h, --help`:
