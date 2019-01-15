@@ -56,7 +56,7 @@ def get_name_lookup(type, paged=False, force=False):
 
     names_by_ids = {}
     for n in names:
-        names_by_ids[str(n["id"])] = n["name"]
+        names_by_ids[str(n["id"])] = n["name"].replace(",", "-").replace("/", "-")
 
     return names_by_ids
 
@@ -138,12 +138,10 @@ def get_type_details(type_name_by_type, type_ids):
             continue
         u.overwrite_print("--> Getting type: " + type_name_by_type[type_id] + "." + str(i) + "/" + str(num_types))
         url = "https://esi.evetech.net/latest/universe/types/" + type_id + "/?datasource=tranquility&language=en-us"
-        # Remove "," from name when creating key as we don't want them in our csv
-        # Type names can have slashes in as we use the name to save th the filesystem,
-        # so swap those to "-" when saving data
-        type_details[type_name_by_type[type_id].replace(",", "-")] = u.get_data(
+
+        type_details[type_name_by_type[type_id]] = u.get_data(
             url=url,
-            fileloc="./data/types/" + type_name_by_type[type_id].replace("/", "-") + ".json"
+            fileloc="./data/types/" + type_name_by_type[type_id] + ".json"
         )
     print("")
     return type_details
@@ -244,7 +242,7 @@ def get_pure_arbitrage(min_margin, max_item_purchase_price, min_potential_revenu
                             artbitrage_count += 1
                             row = {
                                 "item_id": df_dict[item]["sell"]["type_id"][j],
-                                "item": item,
+                                "item": item.replace(",", "-"),
                                 "buy_in_region": df_dict[item]["sell"]["region_name"][j],
                                 "buy_in_system_name": df_dict[item]["sell"]["system_name"][j],
                                 "buy_in_location_id": df_dict[item]["sell"]["location_id"][j],
