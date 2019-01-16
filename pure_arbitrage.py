@@ -95,23 +95,19 @@ def get_and_save_orders(force=False, force_lookups=False, safe_regions=True):
             force=force,
             paged=True
         )
-        for i, order in enumerate(orders_for_region):
-            try:
-                orders_for_region[i]["region"] = region
-                orders_for_region[i]["region_name"] = region_name_by_region[region]
-                orders_for_region[i]["system_name"] = system_name_by_system[str(orders_for_region[i]["system_id"])]
-                orders_for_region[i]["type_name"] = type_name_by_type[str(orders_for_region[i]["type_id"])]
-            except TypeError:
-                print("Odd 'unicode object does not support item assignment' error")
-                print("Order object failing: ")
-                print(orders_for_region[i])
-                continue
+        orders_for_region[:] = [o for o in orders_for_region if o != u'error']
+        for j, order in enumerate(orders_for_region):
+            orders_for_region[j]["region"] = region
+            orders_for_region[j]["region_name"] = region_name_by_region[region]
+            orders_for_region[j]["system_name"] = system_name_by_system[str(orders_for_region[j]["system_id"])]
+            orders_for_region[j]["type_name"] = type_name_by_type[str(orders_for_region[j]["type_id"])]
+
         orders += orders_for_region
 
     # Encode everything to ensure we can write to csv
     print("\nEncoding to utf-8")
     for i, order in enumerate(orders):
-         orders[i] = {k: unicode(v).encode("utf-8") for k,v in orders[i].iteritems()}
+        orders[i] = {k: unicode(v).encode("utf-8") for k,v in orders[i].iteritems()}
 
     u.write_to_csv(
         [
